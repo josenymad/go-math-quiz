@@ -2,14 +2,19 @@ package main
 
 import (
 	"encoding/csv"
+	"flag"
 	"fmt"
 	"os"
 )
 
 func main() {
-	file, err := os.Open("problems.csv")
+	csvFileName := flag.String("csv", "problems.csv", "a csv file in the format of 'question,answer'")
+	flag.Parse()
+
+	file, err := os.Open(*csvFileName)
 	if err != nil {
-		panic(err)
+		fmt.Printf("Failed to open the csv file: %s", *csvFileName)
+		os.Exit(1)
 	}
 	defer file.Close()
 
@@ -45,5 +50,5 @@ func main() {
 		}
 	}
 
-	fmt.Printf("You got %v out of %v questions right, these are the questions you got wrong %v", correctAnswers, len(questions), wrongAnswers)
+	fmt.Printf("You got %v out of %v questions right, these are the questions you got wrong %v\n", correctAnswers, len(questions), wrongAnswers)
 }
