@@ -44,7 +44,7 @@ func main() {
 	timer := time.NewTimer(time.Duration(*timeLimit) * time.Second)
 
 	for index, question := range questions {
-		fmt.Printf("Question %v:\n%v=", index+1, question)
+		fmt.Printf("\nQuestion %v:\n%v=", index+1, question)
 		answerCh := make(chan string)
 		go func() {
 			var input string
@@ -70,6 +70,7 @@ func main() {
 			return
 		case answer := <-answerCh:
 			userAnswers = append(userAnswers, answer)
+			fmt.Println("Answer recorded")
 		}
 	}
 
