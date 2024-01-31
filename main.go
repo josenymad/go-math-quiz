@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"time"
 )
 
 func exit(message string) {
@@ -14,6 +15,7 @@ func exit(message string) {
 
 func main() {
 	csvFileName := flag.String("csv", "problems.csv", "a csv file in the format of 'question,answer'")
+	timeLimit := flag.Int("limit", 30, "the time limit for the quiz in seconds")
 	flag.Parse()
 
 	file, err := os.Open(*csvFileName)
@@ -39,11 +41,26 @@ func main() {
 		answers = append(answers, questionAnswer[1])
 	}
 
+	timer := time.NewTimer(time.Duration(*timeLimit) * time.Second)
+
 	for index, question := range questions {
-		var input string
-		fmt.Printf("Question %v:\n%v=", index+1, question)
-		fmt.Scan(&input)
-		userAnswers = append(userAnswers, input)
+		select {
+		case <-timer.C:
+			for index, userAnswer := range userAnswers {
+				if userAnswer == answers[index] {
+					correctAnswers++
+				} else {
+					wrongAnswers = append(wrongAnswers, index+1)
+				}
+			}
+			fmt.Printf("Time's up! You got %v out of %v questions right, these are the questions you got wrong %v\n", correctAnswers, len(questions), wrongAnswers)
+			return
+		default:
+			var input string
+			fmt.Printf("Question %v:\n%v=", index+1, question)
+			fmt.Scan(&input)
+			userAnswers = append(userAnswers, input)
+		}
 	}
 
 	for index, userAnswer := range userAnswers {
