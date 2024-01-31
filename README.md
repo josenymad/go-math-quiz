@@ -6,9 +6,9 @@ This is the first program I've written in Go. It extracts questions and answers 
 
 If you're using a Mac: 
 
-1. Fork and clone this repo, then run the binary file with: 
-
-`./quiz`
+1. Fork and clone this repo
+2. Navigate to the new directory on you machine
+2. Run the binary file with:  `./quiz`
 
 You can also:
 
@@ -19,12 +19,10 @@ You can also:
 
 As a default, the program will use the `problems.csv` file. You can create and add new quizzes using the same format and run those using the `-csv` flag:
 
-`go run . -csv=<new_quiz_file.csv>` 
+`-csv=<new_quiz_file.csv>` 
 
 As a default, the timer is set for 30 seconds. You can change this using the `-limit` flag:
 
-`go run . -limit=<new_time_limit>`
+`-limit=<new_time_limit>`
 
-Use the `--help` flag for a breakdown of these flags:
-
-`go run . --help`
+Use the `--help` flag for a breakdown of these flags.
