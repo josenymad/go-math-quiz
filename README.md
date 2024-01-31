@@ -4,6 +4,14 @@ This is the first program I've written in Go. It extracts questions and answers 
 
 ## Usage 
 
+If you're using a Mac: 
+
+1. Fork and clone this repo, then run the binary file with: 
+
+`./quiz`
+
+You can also:
+
 1. [Download](https://go.dev/dl/) and install Go
 2. Fork and clone this repo
 3. Navigate to the new directory on you machine
