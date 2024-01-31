@@ -39,9 +39,9 @@ func main() {
 		answers = append(answers, questionAnswer[1])
 	}
 
-	for _, question := range questions {
+	for index, question := range questions {
 		var input string
-		fmt.Println(question)
+		fmt.Printf("Question %v:\n%v=", index+1, question)
 		fmt.Scan(&input)
 		userAnswers = append(userAnswers, input)
 	}
