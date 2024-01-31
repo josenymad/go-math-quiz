@@ -7,21 +7,25 @@ import (
 	"os"
 )
 
+func exit(message string) {
+	fmt.Println(message)
+	os.Exit(1)
+}
+
 func main() {
 	csvFileName := flag.String("csv", "problems.csv", "a csv file in the format of 'question,answer'")
 	flag.Parse()
 
 	file, err := os.Open(*csvFileName)
 	if err != nil {
-		fmt.Printf("Failed to open the csv file: %s", *csvFileName)
-		os.Exit(1)
+		exit(fmt.Sprintf("Failed to open the CSV file: %s\n", *csvFileName))
 	}
 	defer file.Close()
 
 	csvReader := csv.NewReader(file)
 	records, err := csvReader.ReadAll()
 	if err != nil {
-		panic(err)
+		exit("Could not parse the provided CSV file")
 	}
 
 	questions := []string{}
