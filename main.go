@@ -22,6 +22,8 @@ func main() {
 	questions := []string{}
 	answers := []string{}
 	userAnswers := []string{}
+	correctAnswers := 0
+	wrongAnswers := []int{}
 
 	for _, questionAnswer := range records {
 		questions = append(questions, questionAnswer[0])
@@ -35,5 +37,13 @@ func main() {
 		userAnswers = append(userAnswers, input)
 	}
 
-	fmt.Println(answers, userAnswers)
+	for index, userAnswer := range userAnswers {
+		if userAnswer == answers[index] {
+			correctAnswers++
+		} else {
+			wrongAnswers = append(wrongAnswers, index+1)
+		}
+	}
+
+	fmt.Printf("You got %v out of %v questions right, these are the questions you got wrong %v", correctAnswers, len(questions), wrongAnswers)
 }
